@@ -8,9 +8,13 @@ use App\Services\TestService;
 use Illuminate\Http\Request;
 class EmployeeController extends Controller
 {
+    private $service;
+
     public function __construct(
-        private EmployeeService $service
-    ) {}
+        EmployeeService $service
+    ) {
+        $this->service = $service;
+    }
     public function index()
     {
 
@@ -32,43 +36,4 @@ class EmployeeController extends Controller
 
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

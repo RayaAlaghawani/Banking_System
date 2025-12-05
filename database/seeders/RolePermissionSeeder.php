@@ -15,6 +15,7 @@ class RolePermissionSeeder extends Seeder
         // create Role
         $adminRole = Role::create(['name' => 'admin']);
         $employeeRole = Role::create(['name' => 'employee']);
+        $citizenRole = Role::create(['name' => 'citizen']);
 
         // create Permission
         $permissions = [
@@ -22,13 +23,18 @@ class RolePermissionSeeder extends Seeder
             'view_complaint',
             'edit_complaint',
             'add_note',
-            'send_complaint',
+         //   'submit_complaint',
             'add_employee'
         ];
 
         foreach ($permissions as $permissionName) {
             Permission::findOrCreate($permissionName, 'web');
         }
+
+        // 2. إنشاء الصلاحيات الجديدة
+    //    $submitComplaintPermission = Permission::firstOrCreate(['name' => 'submit complaint']);
+
+        $citizenRole->givePermissionTo('submit_complaint');
 
         $adminRole->givePermissionTo($permissions);
         $employeeRole->givePermissionTo($permissions);

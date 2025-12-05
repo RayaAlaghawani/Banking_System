@@ -6,12 +6,16 @@ use App\Helpers\ResponseHelper;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\User;
 use App\Repositories\EmployeeRepository;
+use App\Repositories\userRepository;
 use Illuminate\Support\Facades\Auth;
 
 class EmployeeService
 {
-    public function __construct(protected EmployeeRepository $repository)
+    protected $repository;
+
+    public function __construct(userRepository $repository)
     {
+        $this->repository = $repository;
     }
 
     public function add_employee(EmployeeRequest $request)
@@ -22,8 +26,6 @@ class EmployeeService
             $employee->assignRole($employeeRole);
             if ($request->has('permissions')) {
               //  $employeeRole->syncPermissions($request->permissions);
-
-                // أعطي الموظف الصلاحيات
                 $employee->syncPermissions($request->permissions);
             }
             $employee->load('permissions', 'roles');
@@ -61,7 +63,7 @@ class EmployeeService
         unset($user['permissions']);
         $user['permissions'] = $permissions;
         return $user;
-//
+
 
 
 

@@ -18,9 +18,7 @@ class ComplaintRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'department' => ['required', 'string',
-                Rule::in(['Environment', 'Municipality', 'Health', 'Traffic', 'Other'])
-            ],
+            'government_agencie_id' => 'required|exists:government_agencies,id',
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'min:10'],
             'attachment' => ['nullable', 'file', 'max:5120', 'mimes:jpg,jpeg,png,pdf,doc,docx'],

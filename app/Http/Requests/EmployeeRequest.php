@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Helpers\ResponseHelper;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EmployeeRequest extends FormRequest
@@ -35,26 +36,25 @@ class EmployeeRequest extends FormRequest
             ],
 
             // الرقم الوطني: أرقام فقط
-            'National_Identifier' => [
+            'national_id' => [
                 'required',
                 'digits_between:1,50',
                 'regex:/^[0-9]+$/',
-                'unique:users,National_Identifier',
+                'unique:users,national_id',
             ],
 
             'permissions'   => 'array',
             'permissions.*' => 'required|string|exists:permissions,name',
         ];
     }
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    protected function failedValidation(Validator $validator)
     {
         throw new \Illuminate\Http\Exceptions\HttpResponseException(
             ResponseHelper::Validate(
-                'Validation error.',
-                422,
-                $validator->errors()->toArray()
+                $validator->errors()->toArray(), // data
+                'Validation error.',             // message
+                422                               // code (int)
             )
         );
     }
-
 }

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('government_agencies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');   // مثال: وزارة الكهرباء
-            $table->string('type');   // مثال: وزارة الكهرباء
+            $table->string('name');
+            $table->string('type');
 
             $table->timestamps();
         });

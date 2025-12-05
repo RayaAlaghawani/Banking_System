@@ -10,7 +10,13 @@ class EmailVerification extends Model
     use HasFactory;
 
     protected $fillable = [
-        'email',
+        'user_id',
         'code',
+        'expires_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

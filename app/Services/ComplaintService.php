@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Complaint;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
@@ -14,6 +15,7 @@ class ComplaintService
     {
         DB::beginTransaction();
         $attachmentPath = null;
+
         try {
 
             if ($attachment) {
@@ -23,7 +25,7 @@ class ComplaintService
 
             $complaint = Complaint::create([
                 'user_id' => $userId,
-                'department' => $data['department'],
+                'government_agencie_id' => $data['government_agencie_id'],
                 'title' => $data['title'],
                 'description' => $data['description'],
                 'attachment_path' => $attachmentPath,
