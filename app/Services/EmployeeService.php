@@ -20,9 +20,8 @@ class EmployeeService
 
     public function add_employee(EmployeeRequest $request)
     {
-        if (optional(Auth::user())->hasRole('admin')) {
             $employee = $this->repository->create($request->all());
-            $employeeRole = $this->repository->getByName('employee');
+            $employeeRole = $this->repository->getByName('teller');
             $employee->assignRole($employeeRole);
             if ($request->has('permissions')) {
               //  $employeeRole->syncPermissions($request->permissions);
@@ -33,12 +32,6 @@ class EmployeeService
             $employee = $this->appendRolesAndPermission($employee);
             $message = 'Employee added successfully';
             $code = 200;
-        }else{
-            $employee = null;
-            $message = 'You do not have permission to perform this action';
-            $code = 403;
-
-        }
 
         return [
             'user' => $employee,

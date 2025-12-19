@@ -14,8 +14,9 @@ class RolePermissionSeeder extends Seeder
     {
         // create Role
         $adminRole = Role::create(['name' => 'admin']);
-        $employeeRole = Role::create(['name' => 'employee']);
-        $citizenRole = Role::create(['name' => 'citizen']);
+        $employeeRole = Role::create(['name' => 'teller']);
+        $clientRole = Role::create(['name' => 'client']);
+        $directorRole = Role::create(['name' => 'director']);
 
         // create Permission
         $permissions = [
@@ -34,7 +35,7 @@ class RolePermissionSeeder extends Seeder
         // 2. إنشاء الصلاحيات الجديدة
     //    $submitComplaintPermission = Permission::firstOrCreate(['name' => 'submit complaint']);
 
-        $citizenRole->givePermissionTo('submit_complaint');
+        //$clientRole->givePermissionTo('submit_complaint');
 
         $adminRole->givePermissionTo($permissions);
         $employeeRole->givePermissionTo($permissions);

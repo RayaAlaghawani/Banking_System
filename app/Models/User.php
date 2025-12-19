@@ -43,10 +43,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(EmailVerification::class);
     }
-
-    public function complaints()
+    public function account()
     {
-        return $this->hasMany(Complaint::class);
+        return $this->hasMany(Account::class);
+    }
+    public function children()
+    {
+        return $this->hasMany(Account::class,'parent_id');
+    }
+    public function Parent()
+    {
+        return $this->belongsTo(Account::class,'parent_id');
+    }
+    public function transcations()
+    {
+        return $this->hasMany(Transaction::class,'user_id');
     }
 
 }
